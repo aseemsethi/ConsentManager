@@ -22,6 +22,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
 import com.aseemsethi.consentmanager.R;
 
 import java.io.UnsupportedEncodingException;
@@ -77,8 +78,10 @@ public class ConsentFragment extends Fragment {
      */
     public void sendRequest() {
         // Instantiate the RequestQueue.
+        VolleyLog.setTag("Volley");
+        Log.isLoggable("Volley", Log.VERBOSE);
+        VolleyLog.DEBUG = true;
         RequestQueue queue = Volley.newRequestQueue(getActivity());
-        token = token + 1;
         String url = "https://developer.uidai.gov.in/otp/2.5/";
         //String url = "https://auth.uidai.gov.in/otp/2.5/";
         // Aadhaar OTP API - https://<host>/otp/<ver>/<ac>/<uid[0]>/<uid[1]>/<asalk>
@@ -86,7 +89,7 @@ public class ConsentFragment extends Fragment {
         url += "9/";  // uid[0]/uid[1] - first 2 digits of aadhaar number
         url += "9/";  // uid[0]/uid[1] - first 2 digits of aadhaar number
         url += "MMxNu7a6589B5x5RahDW-zNP7rhGbZb5HsTRwbi-VVNxkoFmkHGmYKM"; // asalk – A valid ASA license key - URL encoded.
-        Log.i(TAG, url);
+        Log.i(TAG, "Sent: " + url);
 
         //url = "https://developer.uidai.gov.in/otp/1.6/public/9/7/MBni88mRNM18dKdiVyDYCuddwXEQpl68dZAGBQ2nsOlGMzC9DkOVL5s";
 
@@ -105,21 +108,20 @@ public class ConsentFragment extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 String data = null;
-                Log.i(TAG, "That didn't work!");
+                Log.i(TAG, "That didn't work!" + error.toString());
                 try {
-                    if (error.networkResponse != null)
+                    if (error.networkResponse != null) {
                         data = new String(error.networkResponse.data, "utf-8");
+                        Log.i(TAG, "Response: " + data);
+                    }
                 } catch(UnsupportedEncodingException e) {
                     Log.i(TAG, "Error encoding");
                 }
-                if (error.networkResponse != null)
-                    Log.i(TAG, error.toString() + ", ErrorCode: " +
-                        error.networkResponse.statusCode + ", Data: " + data);
             }
         }) {
             @Override
             public String getBodyContentType() {
-                Log.i(TAG, "GetBodyContentType called..");
+                //Log.i(TAG, "GetBodyContentType called..");
                 return "application/sml; charset=" + getParamsEncoding();
             }
             /* XML Data Format
@@ -134,16 +136,25 @@ public class ConsentFragment extends Fragment {
             public byte[] getBody() throws AuthFailureError {
                 String body = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" +
                     " <Otp uid=\"999941057058\" ac=\"public\" sa=\"public\" ver=\"2.5\""+
-                    " txn=\"1111\" ts=\"timestamp\" lk=\"MBni88mRNM18dKdiVyDYCuddwXEQpl68dZAGBQ2nsOlGMzC9DkOVL5s\"" +
+                    " txn=\"1111\" ts=\"timestamp\"" +
+                    " lk=\"MBni88mRNM18dKdiVyDYCuddwXEQpl68dZAGBQ2nsOlGMzC9DkOVL5s\"" +
                     " type=\"A\"" +
                     " <Signatare>xxx</Signature>" +
                     " </Otp>";
-                Log.i(TAG, body);
+                //Log.i(TAG, "Added xml:" + body);
                 return body.getBytes();
             }
         };
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
+        try {
+            Log.i(TAG, "Sent Request URL: \n" +
+                    stringRequest.getUrl() + "\nBody: " +
+                    stringRequest.getBodyContentType() + "\n" +
+                    new String(stringRequest.getBody()));
+        } catch (AuthFailureError authFailureError) {
+            authFailureError.printStackTrace();
+        }
     }
 
     public class HashGenerator {
