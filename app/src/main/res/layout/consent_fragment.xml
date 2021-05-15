@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.main.ConsentFragment">
+
+    <TableLayout
+        android:id="@+id/tableZap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:paddingBottom="5dp">
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_weight="1"
+                android:paddingHorizontal="10dp"
+                android:textSize="20dp"
+                android:text="Name:" />
+            <EditText
+                android:id="@+id/nameT"
+                android:layout_weight="8"
+                android:inputType="textPersonName"
+                android:layout_marginRight="20dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_weight="1"
+                android:paddingHorizontal="10dp"
+                android:textSize="20dp"
+                android:text="Mobile:" />
+            <EditText
+                android:id="@+id/mobileT"
+                android:layout_weight="8"
+                android:inputType="phone"
+                android:layout_marginRight="20dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_weight="1"
+                android:inputType="numberDecimal"
+                android:paddingHorizontal="10dp"
+                android:textSize="20dp"
+                android:text="Aadhaar:" />
+            <EditText
+                android:id="@+id/aadhaarT"
+                android:layout_weight="8"
+                android:inputType="numberDecimal"
+                android:layout_marginRight="20dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:layout_marginTop="20dp">
+
+            <Button
+                android:id="@+id/getOtpB"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:clickable="true"
+                android:text="Get OTP"/>
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_weight="1"
+                android:inputType="numberDecimal"
+                android:paddingHorizontal="10dp"
+                android:textSize="20dp"
+                android:text="OTP:" />
+            <EditText
+                android:id="@+id/otpT"
+                android:layout_weight="8"
+                android:layout_height="40dp"
+                android:inputType="numberDecimal"
+                android:layout_marginRight="20dp" />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="20dp">
+
+            <Button
+                android:id="@+id/getAuthB"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:clickable="true"
+                android:text="Authenticate"/>
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="20dp">
+
+        </TableRow>
+    </TableLayout>
+
+    <TextView
+    android:id="@+id/consentT"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:text="Awaiting authentication..."
+    android:layout_marginLeft="10dp"
+    android:layout_marginBottom="30dp"
+    android:textSize="15sp" /><!--Set size-->
+
+</FrameLayout>

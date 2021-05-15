@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Aravind EyeCare ConsentManager</string>
+    <string name="tab_text_1">Agreement</string>
+    <string name="tab_text_2">Consent</string>
+</resources>
